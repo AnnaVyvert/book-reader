@@ -54,9 +54,7 @@ if (!empty($_GET["search"]) != "" && !empty($_GET["option"])) {
 
 
   $searchList = getSearchList($fullText,$_GET["option"], $matches);
-
 }
-
 
 //function test($matches)
 //{
@@ -71,7 +69,6 @@ function getSearchList($txt, $option, $matches)
 {
   // print('pos'.$matchPos);
   // twice array need optimize
-  print_r($matches);
   $search_list = [];
   for($i=0; $i<count($matches[0]); $i++){
     // $search_list[] = $matches[0][$i][1];
@@ -300,8 +297,8 @@ function getSearchList($txt, $option, $matches)
           <ul>
             <?php 
               // $count = count($searchList) ?? 1;
-              $count = count($searchList);
-              for($i=0; $i<$count; $i++){
+              if ($searchList != NULL)
+              for($i=0; $i<count($searchList); $i++){
                 print('<li>');
                 print($searchList[$i]); 
                 print('</li>');

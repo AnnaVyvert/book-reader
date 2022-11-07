@@ -150,7 +150,7 @@ function getSearchList($txt, $option, $matches)
       margin-top: 5px;
       margin-bottom: 5px;
       align-items: center;
-      border: 1px solid;
+      /* border: 1px solid; */
       /* background-color: #afa; */
     }
 
@@ -276,17 +276,17 @@ function getSearchList($txt, $option, $matches)
       <form style="margin-bottom: 0px;">
         <input type="hidden" name="page" value="<?php print($_GET["page"]); ?>" />
         <input class="card int-text" type="text" name="search" />
-        <input class="card int-submit" type="submit" value="Искать в произведении" />
+        <input class="card int-submit" type="submit" value="search" />
       </form>
-      <ol>
+      <div class='list-group' style='margin-right: 10%;'>
         <?php
-        for($i=1; $i<6; $i++){
-          print('<li>');
-          print(mb_substr($SearchHistory[$i], 0, 50));
-          print('</li>');
-        }
+          for($i=1; $i<6; $i++){
+            print('<div class="list-group-item">');
+            print(mb_substr($SearchHistory[$i], 0, 50));
+            print('</div>');
+          }
         ?>
-      </ol>
+      </div>
     </div>
     <div class="blank-w"></div>
 

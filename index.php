@@ -212,7 +212,6 @@ function getSearchList($txt, $option, $matches)
       margin-left: 5%;
       margin-top: 2%;
       height: 80%;
-      white-space: pre-wrap;
       overflow: scroll;
       overflow-x: hidden;
     }
@@ -255,6 +254,7 @@ function getSearchList($txt, $option, $matches)
     .page-text {
       /* margin-left: 25%; */
       text-align: left;
+      white-space: pre-line;
     }
   </style>
 </head>

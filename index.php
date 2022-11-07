@@ -12,19 +12,24 @@ if ($_COOKIE["page"] == "" && $_GET["page"] == "") {
 } else if ($_GET["page"] != "") {
   setcookie("page", $_GET["page"]);
 }
-$fullText = file_get_contents("pale.fire.txt");
+$fullText = file_get_contents("txt.txt");
 //$fullText = strip_tags($fullText);
 // $textArray = str_split($fullText, 2000);
 $textArray = [];
 $point = 0;
-
-for ($i = 0; $i < 100; $i++) {
+// print(strlen($fullText).'<br>');
+$fullTextLen = strlen($fullText);
+for ($i = 0; true; $i++) {
   $to_point = strpos($fullText, '. ', $point + 500);
+  if ($to_point == false){
+    $textArray[] = substr($fullText, $point);
+    break;
+  }
   $textArray[] = substr($fullText, $point, $to_point - $point + 1);
   // print(substr($fullText, $point, $to_point - $point + 1));
+  
   $point = $to_point + 2;
-  if (strlen($fullText) < $point + 500)
-    break;
+  // print($point.'|'.$to_point.'<br>');
 }
 
 $SearchHistory = [];
@@ -224,11 +229,12 @@ function getSearchList($txt, $option, $matches)
 
 
     .main-reader .cmds {
-      display: table;
       width: 90%;
       margin-left: 5%;
       margin-top: 10px;
       margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 45% 10% 45%;
     }
 
     .main-reader .cmds .switch-page {
@@ -247,7 +253,7 @@ function getSearchList($txt, $option, $matches)
     }
 
     .page-text {
-      margin-left: 25%;
+      /* margin-left: 25%; */
       text-align: left;
     }
   </style>
@@ -330,7 +336,7 @@ function getSearchList($txt, $option, $matches)
       } else {
         print("0");
       } ?>">previous page</a>
-      <div class="blank-w" style="display: table-cell;"></div>
+      <div></div>
       <a class='card switch-page' href="?page=<?php if ($_GET["page"] + 1 < sizeof($textArray) - 1) {
         print($_GET["page"] +
           1);

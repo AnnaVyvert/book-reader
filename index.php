@@ -53,7 +53,7 @@ if (!empty($_GET["search"]) != "" && !empty($_GET["option"])) {
   }
 
 
-  $currentSentence = getCurrentSentence($fullText,$_GET["option"], $matches);
+  $searchList = getSearchList($fullText,$_GET["option"], $matches);
 
 }
 
@@ -67,26 +67,25 @@ if (!empty($_GET["search"]) != "" && !empty($_GET["option"])) {
 
 //}
 
-
-function getPreviousSentence($option)
+function getSearchList($txt, $option, $matches)
 {
-  return "...Test1" . $option;
-}
-
-function getCurrentSentence($txt, $option, $matches)
-{
-  $matchPos = $matches[0][$option - 1][1];
   // print('pos'.$matchPos);
-
-  return substr($txt, $matchPos, 10);
+  // twice array need optimize
+  print_r($matches);
+  $search_list = [];
+  for($i=0; $i<count($matches[0]); $i++){
+    // $search_list[] = $matches[0][$i][1];
+    $pos_val = $matches[0][$i][1];
+    // $search_list[] = substr($txt, strrpos(substr($txt, $pos_val-500, 500), '. ')+2, strpos($txt, '. ', $pos_val)+2-$pos_val);
+    $start = strrpos(substr($txt, $pos_val-1000, 1000), '. ');
+    $end = strpos($txt, '.', $pos_val);
+    // print($start-1000+$pos_val.' '.$end.' '.$pos_val.' '.$end-($start-1000+$pos_val));
+    // print(strrpos(substr($txt, $pos_val-1000, 1000), '. '));
+    $search_list[] = substr($txt, $start-1000+$pos_val+2, $end-($start-1000+$pos_val));
+  }
+  // return substr($txt, $matchPos, 10);
+  return $search_list;
 }
-
-function getFutureSentence($option)
-{
-  return "...Test3" . $option;
-}
-
-
 
 ?>
 <html lang="ru">
@@ -205,7 +204,7 @@ function getFutureSentence($option)
       display: table;
     }
 
-    .main-reader .reader {
+    .reader {
       /* background-color: #fff; */
       width: 90%;
       margin-left: 5%;
@@ -279,9 +278,9 @@ function getFutureSentence($option)
       <ol>
         <?php
         for($i=1; $i<6; $i++){
-            print('<li>');
-            print(mb_substr($SearchHistory[$i], 0, 50));
-            print('</li>');
+          print('<li>');
+          print(mb_substr($SearchHistory[$i], 0, 50));
+          print('</li>');
         }
         ?>
       </ol>
@@ -296,28 +295,20 @@ function getFutureSentence($option)
         <form style="margin-bottom: 0px;">
           <input type="hidden" name="page" value="<?php print($_GET["page"]); ?>"></input>
           <input type="hidden" name="search" value="<?php print($_GET["search"] ?? "-1"); ?>"></input>
-          <?php
-          $select = '<select class="selector" name="option">';
-          if ($matchesCount == 0)
-            $select .= '<option value="1">Совпадений нет</option>';
-          for ($i = 0; $i < $matchesCount; $i++) {
-            $select .= '<option value="';
-            $select .= $i + 1;
-            $select .= '">';
-            $select .= $i + 1;
-            $select .= '-ое совпадение';
-            $select .= '</option>';
-          }
-          $select .= '</select>';
-          print($select);
-          ?>
-          <input class="card int-submit" type="submit" value="Вывести совпадение"></input>
         </form>
-        <ul>
-          <li>
-            <?php print($currentSentence ?? "..."); ?>
-          </li>
-        </ul>
+        <div class='card reader' style='margin-top: 5px; height: 280px;'>
+          <ul>
+            <?php 
+              // $count = count($searchList) ?? 1;
+              $count = count($searchList);
+              for($i=0; $i<$count; $i++){
+                print('<li>');
+                print($searchList[$i]); 
+                print('</li>');
+              }
+            ?>
+          </ul>
+      </div>
       </div>
     </div>
   </div>
@@ -354,7 +345,7 @@ function getFutureSentence($option)
 
   <div class="blank-h"></div>
   <div class="card footer">
-    <h4>based on Vladislav Kostuynin's dev</h4>
+    <h4>#Based on @xyla's dev</h4>
   </div>
 </body>
 

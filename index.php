@@ -136,7 +136,7 @@ function getSearchList($txt, $option, $matches)
     .cmd-input .int-text {
       width: 90%;
       margin-top: 5px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       padding: 5px;
     }
 
@@ -265,11 +265,11 @@ function getSearchList($txt, $option, $matches)
 
   <div class="card main-search">
     <div class="cmd-input">
-      <br>
+      <br/>
       <span><b>Book search by phrase:</b></span><br>
       <form style="margin-bottom: 0px;">
         <input type="hidden" name="page" value="<?php print($_GET["page"]); ?>" />
-        <input class="int-text" type="text" name="search" /><br>
+        <input class="card int-text" type="text" name="search" />
         <input class="card int-submit" type="submit" value="Искать в произведении" />
       </form>
       <ol>
@@ -286,7 +286,7 @@ function getSearchList($txt, $option, $matches)
 
     <div class="search-output">
       <div class="selector">
-        <span><br><b>Occlusion number:
+        <span><br><b>Match number:
             <?php print($matchesCount); ?>
           </b></span>
         <form style="margin-bottom: 0px;">

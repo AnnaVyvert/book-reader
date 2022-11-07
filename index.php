@@ -255,7 +255,7 @@ function getSearchList($txt, $option, $matches)
 
 <body>
   <div class='card header'>
-    <h1>Bookreader | Страница:
+    <h1>Bookreader | Page:
       <?php print($_GET['page']+1) ?>
       /
       <?php print(count($textArray)) ?>
@@ -266,7 +266,7 @@ function getSearchList($txt, $option, $matches)
   <div class="card main-search">
     <div class="cmd-input">
       <br>
-      <span><b>Поиск в произведении:</b></span><br>
+      <span><b>Book search by phrase:</b></span><br>
       <form style="margin-bottom: 0px;">
         <input type="hidden" name="page" value="<?php print($_GET["page"]); ?>" />
         <input class="int-text" type="text" name="search" /><br>
@@ -286,7 +286,7 @@ function getSearchList($txt, $option, $matches)
 
     <div class="search-output">
       <div class="selector">
-        <span><br><b>Количество совпадений:
+        <span><br><b>Occlusion number:
             <?php print($matchesCount); ?>
           </b></span>
         <form style="margin-bottom: 0px;">
@@ -329,14 +329,14 @@ function getSearchList($txt, $option, $matches)
         print($_GET["page"] - 1);
       } else {
         print("0");
-      } ?>">Предыдущая страница</a>
+      } ?>">previous page</a>
       <div class="blank-w" style="display: table-cell;"></div>
       <a class='card switch-page' href="?page=<?php if ($_GET["page"] + 1 < sizeof($textArray) - 1) {
         print($_GET["page"] +
           1);
       } else {
         print(sizeof($textArray) - 1);
-      } ?>">Следующая страница</a>
+      } ?>">next page</a>
     </div>
   </div>
 

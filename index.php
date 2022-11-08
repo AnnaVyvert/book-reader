@@ -2,7 +2,7 @@
 if ($_COOKIE["page"] == "" && $_GET["page"] == "") {
   setcookie("page", "1");
   for($i=1; $i<6; $i++)
-    setcookie("SearchHistory".$i, 'mockup');
+    setcookie("SearchHistory".$i, 'history');
   header('Location: index.php?page=1');
   exit;
 } else if ($_GET["page"] == "") {
@@ -59,6 +59,8 @@ if (!empty($_GET["search"]) != "" && !empty($_GET["option"])) {
 
 
   $searchList = getSearchList($fullText,$_GET["option"], $matches);
+}else{
+  $searchList = NULL;
 }
 
 //function test($matches)
@@ -304,11 +306,11 @@ function getSearchList($txt, $option, $matches)
             <?php 
               // $count = count($searchList) ?? 1;
               if ($searchList != NULL)
-              for($i=0; $i<count($searchList); $i++){
-                print('<li>');
-                print($searchList[$i]); 
-                print('</li>');
-              }
+                for($i=0; $i<count($searchList); $i++){
+                  print('<li>');
+                  print($searchList[$i]); 
+                  print('</li>');
+                }
             ?>
           </ul>
       </div>
